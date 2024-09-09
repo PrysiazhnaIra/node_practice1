@@ -8,6 +8,7 @@
     "generate": "node src/scripts/generateProducts",
     "expensive": "node src/scripts/getExpensiveProducts",
     "total_price": "node src/scripts/getTotalPrice",
+    "check_department": "node src/scripts/checkDepartment",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
