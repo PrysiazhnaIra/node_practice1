@@ -10,6 +10,7 @@
     "total_price": "node src/scripts/getTotalPrice",
     "check_department": "node src/scripts/checkDepartment",
     "transform": "node src/scripts/transformArray",
+    "create_files": "node src/scripts/createFiles",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
