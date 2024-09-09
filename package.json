@@ -9,6 +9,7 @@
     "expensive": "node src/scripts/getExpensiveProducts",
     "total_price": "node src/scripts/getTotalPrice",
     "check_department": "node src/scripts/checkDepartment",
+    "transform": "node src/scripts/transformArray",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
