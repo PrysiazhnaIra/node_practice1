@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "generate": "node src/scripts/generateProducts",
+    "expensive": "node src/scripts/getExpensiveProducts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
