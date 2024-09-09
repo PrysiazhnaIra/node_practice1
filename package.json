@@ -12,6 +12,7 @@
     "transform": "node src/scripts/transformArray",
     "create_files": "node src/scripts/createFiles",
     "get_files": "node src/scripts/getFiles",
+    "group": "node src/scripts/groupProducts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

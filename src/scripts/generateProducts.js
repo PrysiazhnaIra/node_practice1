@@ -17,4 +17,4 @@ const generateProducts = async (amount) => {
   }
 };
 
-generateProducts(5);
+generateProducts(20);
