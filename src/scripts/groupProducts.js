@@ -6,14 +6,25 @@ const groupProducts = async () => {
   try {
     const data = await fs.readFile(DB_PATH, "utf-8");
     const products = JSON.parse(data);
+    //first version
+    // products.forEach(({ material }) => {
+    //   groupedProducts[material] = [];
+    // });
 
-    products.forEach(({ material }) => {
-      groupedProducts[material] = [];
-    });
+    // products.forEach(({ name, material }) => {
+    //   groupedProducts[material] = [...groupedProducts[material], name];
+    // });
+
+    //second version
 
     products.forEach(({ name, material }) => {
+      if (!groupedProducts[material]) {
+        groupedProducts[material] = [];
+      }
+
       groupedProducts[material] = [...groupedProducts[material], name];
     });
+
     console.log(groupedProducts);
   } catch (error) {
     console.log(error);
