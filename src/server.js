@@ -33,7 +33,7 @@ export const setupServer = () => {
   //   });
   // });
 
-  app.use(productRouter);
+  app.use('/products', productRouter);
 
   app.use('*', notFoundHandler);
 
