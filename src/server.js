@@ -4,6 +4,7 @@ import { env } from './utils/env.js';
 import { notFoundHandler } from './middlewares/notfoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import productRouter from './routes/products.js';
+import authRouter from './routes/auth.js';
 
 const PORT = Number(env('PORT', '3000'));
 
@@ -17,23 +18,10 @@ export const setupServer = () => {
     }),
   );
 
-  // app.use(
-  //   pino({
-  //     transport: {
-  //       target: 'pino-pretty',
-  //     },
-  //   }),
-  // );
-
   app.use(cors());
 
-  // app.get('/', (req, res) => {
-  //   res.json({
-  //     message: 'Hello world!',
-  //   });
-  // });
-
   app.use('/products', productRouter);
+  app.use('/users', authRouter);
 
   app.use('*', notFoundHandler);
 

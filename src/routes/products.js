@@ -6,15 +6,24 @@ import {
   patchProductByIdController,
 } from '../controllers/products.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
+import { authenticate } from '../middlewares/authenticate.js';
 
 const productRouter = Router();
 
-productRouter.get('/', ctrlWrapper(getAllProductsController));
+productRouter.get('/', authenticate, ctrlWrapper(getAllProductsController));
 
-productRouter.post('/', ctrlWrapper(createProductController));
+productRouter.post('/', authenticate, ctrlWrapper(createProductController));
 
-productRouter.delete('/:productId', ctrlWrapper(deleteProductByIdController));
+productRouter.delete(
+  '/:productId',
+  authenticate,
+  ctrlWrapper(deleteProductByIdController),
+);
 
-productRouter.patch('/:productId', ctrlWrapper(patchProductByIdController));
+productRouter.patch(
+  '/:productId',
+  authenticate,
+  ctrlWrapper(patchProductByIdController),
+);
 
 export default productRouter;
