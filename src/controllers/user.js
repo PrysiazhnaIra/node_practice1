@@ -1,28 +1,28 @@
 import createHttpError from 'http-errors';
 import {
-  createActiveSession,
   createUser,
   findUserByEmail,
+  logoutUser,
+  updateUserWithToken,
 } from '../services/user.js';
 import bcrypt from 'bcrypt';
-import { refreshTokenLifeTime } from '../constants/constants.js';
 
 export const registerUserController = async (req, res) => {
   const { email, name } = req.body;
 
   const user = await findUserByEmail(email);
   if (user) throw createHttpError(409, 'Email in use');
-  await createUser(req.body);
+  const { token } = await createUser(req.body);
 
   res.status(201).json({
-    status: 201,
-    message: 'Successfully registered a user!',
-    data: { email, name },
+    token,
+    user: { name, email },
   });
 };
 
 export const loginUserController = async (req, res) => {
   const user = await findUserByEmail(req.body.email);
+  const { name, email } = user;
   if (!user) {
     throw createHttpError(401, 'Wrong credentials!');
   }
@@ -33,22 +33,26 @@ export const loginUserController = async (req, res) => {
     throw createHttpError(401, 'Wrong credentials!');
   }
 
-  const session = await createActiveSession(user._id);
+  const { token } = await updateUserWithToken(user._id);
 
-  res.cookie('refreshToken', session.refreshToken, {
-    httpOnly: true,
-    expires: new Date(Date.now() + refreshTokenLifeTime),
+  res.status(200).json({
+    token,
+    user: { name, email },
   });
+};
 
-  res.cookie('sessionId', session, session._id, {
-    httpOnly: true,
-    expires: new Date(Date.now() + refreshTokenLifeTime),
-  });
+export const logoutController = async (req, res) => {
+  const userId = req.user.id;
+  await logoutUser(userId);
+
+  res.sendStatus(204);
+};
+
+export const refreshUserController = (req, res) => {
+  const { name, email } = req.user;
+
   res.json({
-    status: 200,
-    message: 'Successfully logged in an user!',
-    data: {
-      accessToken: session.accessToken,
-    },
+    name,
+    email,
   });
 };
